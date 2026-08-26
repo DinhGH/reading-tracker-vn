@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Reading Activity Tracker",
+  "version": "1.0",
+  "description": "Theo dõi và phân tích hoạt động đọc báo của người dùng.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "alarms"
+  ],
+  "host_permissions": [
+    "*://vnexpress.net/*",
+    "*://dantri.com.vn/*",
+    "*://tuoitre.vn/*",
+    "http://localhost:5000/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Reading Activity Tracker"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://vnexpress.net/*",
+        "*://dantri.com.vn/*",
+        "*://tuoitre.vn/*"
+      ],
+      "js": ["config.js", "content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ]
+}

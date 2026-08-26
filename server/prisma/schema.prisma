@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Article {
+  id         Int       @id @default(autoincrement())
+  url        String    @unique @db.VarChar(500)
+  domain     String    @db.VarChar(100)
+  title      String    @db.VarChar(500)
+  content    String    @db.LongText
+  summary    String?   @db.LongText
+  topic      String?   @db.VarChar(255)
+  category   String?   @db.VarChar(100)
+  confidence Float?
+  created_at DateTime  @default(now())
+  sessions   Session[]
+
+  @@map("articles")
+}
+
+model Session {
+  id                String        @id @db.VarChar(36)
+  article_id        Int
+  start_time        DateTime      @default(now())
+  end_time          DateTime?
+  total_active_time Int           @default(0)
+  status            SessionStatus @default(ACTIVE)
+  created_at        DateTime      @default(now())
+  updated_at        DateTime      @updatedAt
+  events            Event[]
+  article           Article       @relation(fields: [article_id], references: [id], onDelete: Cascade)
+
+  @@index([article_id], map: "sessions_article_id_fkey")
+  @@map("sessions")
+}
+
+model Event {
+  id         String    @id @db.VarChar(36)
+  session_id String    @db.VarChar(36)
+  event_type EventType
+  timestamp  DateTime  @default(now())
+  metadata   Json?
+  session    Session   @relation(fields: [session_id], references: [id], onDelete: Cascade)
+
+  @@index([session_id], map: "events_session_id_fkey")
+  @@map("events")
+}
+
+enum SessionStatus {
+  ACTIVE
+  COMPLETED
+}
+
+enum EventType {
+  PAGE_ENTER
+  PAGE_ACTIVE
+  PAGE_INACTIVE
+  PAGE_LEAVE
+}
