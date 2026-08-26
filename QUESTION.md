@@ -60,3 +60,12 @@
 - **Giải pháp:**
 - **Cơ chế bóc tách dự phòng (Fallback DOM Parsing):** Không phụ thuộc 100% vào CSS selector cố định. Nếu selector chính thất bại, extension tự động chuyển sang thuật toán Heuristic (tương tự thư viện _Mozilla Readability_) để quét thẻ `<article>`, `<main>` hoặc gom các thẻ `<p>` có mật độ chữ cao nhất.
 - **Remote Config:** Lưu cấu hình CSS selectors trên Server hoặc file json từ xa. Khi báo đổi giao diện, chỉ cần cập nhật selector trên server/config mà không cần người dùng phải cập nhật lại Extension.
+
+---
+
+**8. AI: Tóm tắt và Phân loại bài báo**
+
+- **Tóm tắt (Câu 6):** Sử dụng Google Gemini API với prompt kỹ thuật (System Instruction) yêu cầu tóm tắt 3-5 câu, tập trung vào nội dung chính, loại bỏ quảng cáo. Sử dụng kỹ thuật Few-shot prompting để tăng chất lượng.
+- **Phân loại (Câu 7):** Sử dụng mô hình Classification tích hợp trong Gemini hoặc tập luật từ khóa dựa trên nội dung bài viết. Trả về nhãn cùng với độ tin cậy (`confidence score`).
+- **Phân tích sở thích (Câu 8):** Tính toán dựa trên tần suất đọc của từng `category` trong lịch sử phiên đọc của `session_id`. Áp dụng trọng số (weight) cao hơn cho các bài đọc có `total_active_time` lớn.
+- **Dự đoán (Câu 9):** Sử dụng hồi quy tuyến tính (Linear Regression) đơn giản dựa trên dữ liệu lịch sử về độ dài bài viết (`char_count`) và tốc độ đọc trung bình của người dùng, kết hợp với sở thích về chủ đề.

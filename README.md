@@ -215,14 +215,14 @@ Dashboard runs on `http://localhost:5173`
 - [x] Offline queue for failed event submissions
 - [x] Socket.io real-time updates setup
 - [x] Server-side error middleware
+- [x] AI article summarization (Google Generative AI integration)
+- [x] Article category classification
+- [x] Reading preference analysis
 
-### 🔲 Not Implemented (Part II Features)
+### 🔲 Not Implemented / In Progress
 
-- [ ] AI article summarization (Google Generative AI integration)
-- [ ] Article category classification
-- [ ] Reading preference analysis
 - [ ] Reading time prediction
-- [ ] Advanced analytics charts
+- [ ] Advanced analytics charts (visuals)
 
 ## 🔧 Edge Cases & Solutions
 
@@ -569,11 +569,10 @@ Retrieve sessions with pagination.
 ### Current Limitations
 
 1. **No authentication**: Multi-user support not yet implemented
-2. **No AI features**: Summarization and classification are placeholders
-3. **No cron jobs**: Automatic session cleanup not yet scheduled
-4. **Limited domains**: Only 3 Vietnamese news sites supported
-5. **No data export**: Can't export reading data yet
-6. **No charts**: Dashboard lacks visual analytics (Recharts installed but not used)
+2. **No cron jobs**: Automatic session cleanup not yet scheduled
+3. **Limited domains**: Only 3 Vietnamese news sites supported
+4. **No data export**: Can't export reading data yet
+5. **No charts**: Dashboard lacks visual analytics (Recharts installed but not used)
 
 ### Planned Features (Phase 2)
 
