@@ -56,24 +56,29 @@ const TopicDomainChart = ({ articles, sessions, stats }) => {
     ),
   };
 
-  const weeklyData =
-    stats?.weeklyStats?.map((s) => ({
-      day: s.day.substring(0, 3),
-      topics: s.topics,
-      readingTime: s.readingTime,
-    })) || [];
+  // FIX: Always use Array.isArray + fallback empty array to prevent falsy, undefined, null issues!
+  const weeklyData = Array.isArray(stats?.weeklyStats)
+    ? stats.weeklyStats.map((s) => ({
+        day: s.day ? s.day.substring(0, 3) : "",
+        topics: typeof s.topics === "number" ? s.topics : 0,
+        readingTime: typeof s.readingTime === "number" ? s.readingTime : 0,
+      }))
+    : [];
 
   // Professional color palette inspired by modern dashboards
   const COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
 
-  const eventPieData = stats?.articleSessionStats?.eventActivity
-    ? Object.entries(stats.articleSessionStats.eventActivity).map(
-        ([name, value]) => ({
-          name,
-          value,
-        }),
-      )
-    : [];
+  // FIX: Defensive: eventActivity có thể null/undefined
+  const eventPieData =
+    stats?.articleSessionStats?.eventActivity &&
+    typeof stats.articleSessionStats.eventActivity === "object"
+      ? Object.entries(stats.articleSessionStats.eventActivity).map(
+          ([name, value]) => ({
+            name,
+            value,
+          }),
+        )
+      : [];
 
   const sessionStatusData = [
     { name: "Active", value: activeSessions },

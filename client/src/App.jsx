@@ -24,7 +24,14 @@ function App() {
 
       setArticles(articlesResponse.data.data || []);
       setSessions(sessionsResponse.data.data || []);
-      setStats(statsResponse.data.data || null);
+      const statsData = statsResponse.data.data || null;
+      // Đảm bảo đồng bộ: topicdomainchart yêu cầu trường articleSessionStats, weeklyStats
+      setStats({
+        ...statsData,
+        articleSessionStats: statsData?.articleSessionStats || {},
+        weeklyStats: statsData?.weeklyStats || [],
+        topArticles: statsData?.topArticles || [], // hỗ trợ luôn topArticles nếu có
+      });
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -46,22 +53,9 @@ function App() {
     });
 
     // Listen for real-time dashboard updates with data
-    newSocket.on("dashboard_update", (data) => {
-      console.log("Dashboard update event received:", data);
-
-      // Destructure received data
-      const { updatedArticles, updatedSessions, updatedStats } = data;
-
-      // Update states with validated data
-      if (updatedArticles) {
-        setArticles(updatedArticles);
-      }
-      if (updatedSessions) {
-        setSessions(updatedSessions);
-      }
-      if (updatedStats) {
-        setStats(updatedStats);
-      }
+    newSocket.on("dashboard_update", () => {
+      // Re-fetch all live data for true realtime state (articles, sessions, stats)
+      fetchData();
     });
 
     // Cleanup Socket.io connection
