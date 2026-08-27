@@ -91,6 +91,20 @@ const createEvent = async (payload) => {
       orderBy: { start_time: "desc" },
     });
 
+    // Check if session was completed in the last 10 minutes to ignore ghost events
+    const recentCompletedSession = await prisma.session.findFirst({
+      where: {
+        article_id: article.id,
+        status: "COMPLETED",
+        end_time: { gte: new Date(new Date().getTime() - 10 * 60 * 1000) },
+      },
+      orderBy: { end_time: "desc" },
+    });
+
+    if (recentCompletedSession && event_type === "PAGE_ENTER") {
+      return { message: "Ghost session ignored", event: null };
+    }
+
     if (existingSession) {
       session = existingSession;
       // Optionally: Could also merge events here if needed

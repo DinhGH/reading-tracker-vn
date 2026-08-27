@@ -53,9 +53,9 @@ document.getElementById("dashboardBtn").addEventListener("click", () => {
 });
 
 // Handle Settings button click
-document.getElementById("settingsBtn").addEventListener("click", () => {
-  alert("Settings page coming soon!");
-});
+// document.getElementById("settingsBtn").addEventListener("click", () => {
+//   alert("Settings page coming soon!");
+// });
 
 // Handle Support link click
 document.getElementById("supportLink").addEventListener("click", () => {

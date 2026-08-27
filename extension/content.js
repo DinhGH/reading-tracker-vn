@@ -6,17 +6,17 @@ const TRACKED_WEBSITES = [
   {
     domain: "vnexpress.net",
     name: "VnExpress",
-    selectors: ["article.fck_detail", "article"],
+    selectors: [".container", ".detail-new"],
   },
   {
     domain: "dantri.com.vn",
     name: "Dân Trí",
-    selectors: [".dt-news-content", "article"],
+    selectors: ["#articleContent"],
   },
   {
     domain: "tuoitre.vn",
     name: "Tuổi Trẻ",
-    selectors: [".detail-content-body", "article"],
+    selectors: [".main-detail", "#detail__cmain"],
   },
 ];
 
