@@ -173,6 +173,32 @@ npx prisma db push
 
 ## 🎯 Running the Project
 
+---
+
+### Examples & Results
+
+**Below are examples of the outputs users can expect:**
+
+#### Dashboard Live Demo
+
+Sample image of the professional dashboard during use:
+![Dashboard Example](./public/dashboard-example.png)
+
+#### AI Summarization/Classification Results
+
+Example result of summarization and topic detection API:
+
+```json
+{
+  "summary": "This article discusses the advancements in AI technology for summarization tasks.",
+  "category": "Technology",
+  "confidence": 0.91
+}
+}
+```
+
+Refer to the `Edge Cases & Solutions` for how scenarios like multi-tab browsing or offline handling are robustly addressed.
+
 ### Terminal 1: Start Backend Server
 
 ```bash
@@ -224,7 +250,49 @@ Dashboard runs on `http://localhost:5173`
 - [ ] Reading time prediction
 - [ ] Advanced analytics charts (visuals)
 
-## 🔧 Edge Cases & Solutions
+## 🌟 Real-World Scenarios
+
+Here’s how the system effectively handles various real-world situations:
+
+### 1. Simultaneous Multiple Tabs
+
+- **Issue**: Tracking accurate active times across multiple tabs.
+- **Solution**: Each tab generates a unique `session_id`. Only tabs marked visible (`document.visibilityState === 'visible'`) increment the timer for reading activity.
+
+### 2. Frequent Tab Switching
+
+- **Issue**: Excessive events sent while a user rapidly switches tabs.
+- **Solution**: Event processing uses a throttle mechanism. Delays prevent redundant network calls, optimizing server load.
+
+### 3. Prolonged Inactivity
+
+- **Issue**: Long periods of inactivity incorrectly count as active reading time.
+- **Solution**: Tabs detect user inactivity after 30 seconds and emit a `PAGE_INACTIVE` event, which pauses the session timer.
+
+### 4. Abrupt Chrome Browser Closure
+
+- **Issue**: Missing `PAGE_LEAVE` events with sudden exits.
+- **Solution**: Events are transmitted via `navigator.sendBeacon()` on `beforeunload` and `pagehide`. Batch processing ensures no session remains open indefinitely.
+
+### 5. Duplicate Event Submissions
+
+- **Issue**: Duplicates caused by restarts or connection retries.
+- **Solution**: Each event carries a unique ID (`event_id`). Database constraints prevent duplicate entries.
+
+### 6. Internet Connectivity Loss
+
+- **Issue**: Lost events when the user is temporarily offline.
+- **Solution**: Events are stored locally and automatically retried once connectivity resumes.
+
+### 7. Changing HTML Structures on Websites
+
+- **Issue**: Extracting article data fails if website structure updates.
+- **Solution**: The extension applies fallback mechanisms:
+  - Maintains specific site rules (e.g., VnExpress → Dân Trí).
+  - Uses general `<article>` tags.
+  - Parses `<p>` elements incrementally when needed.
+
+Refer to "Edge Cases & Solutions" for implementation details on each case.
 
 ### 1. **User Opens Multiple Tabs Simultaneously**
 
@@ -537,6 +605,28 @@ Retrieve sessions with pagination.
 - Easy integration with React
 
 ## 📊 Database Schema
+
+## ❓ Frequently Asked Questions (FAQs)
+
+### Q: What information is collected when users read articles?
+
+**A:** The system collects the article URL, domain, title, content, timestamps of when the reading session starts/ends, total reading time, and the tab's activity state.
+
+### Q: How does the system handle multiple simultaneous tabs from the same user?
+
+**A:** Each tab generates a unique session ID on load. Active reading time is only incremented for tabs where `document.visibilityState === 'visible'`.
+
+### Q: What happens if the user loses internet connectivity while reading?
+
+**A:** The Chrome extension stores failed events in `chrome.storage.local`. Once the connection is restored, pending events are sent automatically.
+
+### Q: How does the system determine when the user is actively reading?
+
+**A:** It uses `PAGE_ACTIVE` and `PAGE_INACTIVE` events. If no interaction is detected for 30 seconds on an active tab, reading time is paused.
+
+### Q: What if the HTML structure of a tracked website changes?
+
+**A:** The extension uses a fallback mechanism with predefined site-specific selectors, followed by general selectors like `<article>` or `<p>` tags for content extraction.
 
 **Articles**:
 

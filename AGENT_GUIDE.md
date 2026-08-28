@@ -168,6 +168,9 @@ server/
 
 ### AI Integration (Gemini 2.5 Flash)
 
+- **Status Update**: Summarization and classification features have been implemented, but require further integration into the real-time event processing flow.
+- **Future Enhancements**: The inclusion of reading time prediction models remains a high-priority addition for Phase II development.
+
 - **Choice**: Google Generative AI API (cost-effective, no training required)
 - **Features**: Summarization, classification, preference analysis, time prediction
 - **Integration**: Async service with error handling and fallback
@@ -325,6 +328,8 @@ curl http://localhost:5000/api/sessions
 ---
 
 ## 11. Deployment Checklist (Future)
+
+- **Update**: Refer to the new "Examples & Results" and "Real-World Scenarios" sections in the `README.md` for visual outputs and detailed breakdowns of system behavior under various edge cases.
 
 - [ ] Set environment variables (DATABASE_URL, GOOGLE_API_KEY, etc.)
 - [ ] Run Prisma migrations

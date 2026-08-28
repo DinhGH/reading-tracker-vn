@@ -143,6 +143,12 @@ confidence  Float?       // Classification confidence
 
 ## Edge Cases & Solutions Verification
 
+Updated to reflect the detailed expansion recently added to the README:
+
+### Dashboard Example & Results
+
+- **Addition**: A live dashboard example image and AI summarization/classification results are now available in the README under "Examples & Results”.
+
 ### ✅ 1. Multiple Tabs Simultaneously
 
 - **Solution**: Each tab generates unique session_id

@@ -395,16 +395,16 @@ chrome://extensions/  # Reload the extension
 - [x] Frontend loads at `http://localhost:5173`
 - [x] Extension appears in `chrome://extensions/`
 - [x] Can visit news site without errors
-- [ ] Console shows "Session initialized" message
-- [ ] Server logs show POST /api/events request
-- [ ] Dashboard refreshes and shows data
-- [ ] Articles table has at least one entry
-- [ ] Sessions table has at least one entry
-- [ ] Metric cards show read count > 0
-- [ ] Manual API test returns correct data
+- [x] Console shows "Session initialized" message
+- [x] Server logs show POST /api/events request
+- [x] Dashboard refreshes and shows data
+- [x] Articles table has at least one entry
+- [x] Sessions table has at least one entry
+- [x] Metric cards show read count > 0
+- [x] Manual API test returns correct data
 - [x] No CORS errors in browser console
 - [x] No 500 errors from server
 
 ---
 
-**Last Updated**: 2026-08-18
+**Last Updated**: 2026-08-28
