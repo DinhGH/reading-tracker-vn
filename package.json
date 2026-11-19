@@ -1,0 +1,19 @@
+{
+  "name": "diid-reading-tracker-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multi-layered benchmark test suite (Vitest + Jest/Supertest + Playwright) for Reading Activity Tracker",
+  "scripts": {
+    "test:unit:client": "npm --prefix client run test:unit",
+    "test:unit:server": "npm --prefix server run test:unit",
+    "test:unit": "npm run test:unit:client & npm run test:unit:server",
+    "test:integration": "npm --prefix server run test:integration",
+    "test:e2e": "playwright test",
+    "test:coverage:client": "npm --prefix client run test:coverage",
+    "test:coverage:server": "npm --prefix server run test:coverage",
+    "test:coverage": "npm run test:coverage:client & npm run test:coverage:server"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1"
+  }
+}
