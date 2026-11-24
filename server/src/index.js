@@ -9,6 +9,7 @@ import sessionRoutes from "./routes/session.routes.js";
 import articleRoutes from "./routes/article.routes.js";
 import statsRoutes from "./routes/stats.routes.js";
 import aiRoutes from "./routes/ai.routes.js";
+import sandboxRoutes from "./routes/sandbox.routes.js";
 import errorHandler from "./middlewares/error.middleware.js";
 import prisma from "./config/prisma.js";
 import cleanupHangingSessions from "./cron/cleanup.cron.js";
@@ -33,6 +34,7 @@ app.use(sessionRoutes);
 app.use(articleRoutes);
 app.use(statsRoutes);
 app.use(aiRoutes);
+app.use("/api/sandbox", sandboxRoutes);
 
 // Health Check
 app.get("/", (req, res) => {

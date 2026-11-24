@@ -1,0 +1,36 @@
+{
+  "modes": [
+    {
+      "id": "internal_qa",
+      "label": "Hỏi đáp chức năng nội bộ",
+      "description": "Giải đáp kiến trúc, API, luồng hoạt động và tính năng trong dự án DiiD.",
+      "extraInstruction": "Giải thích rõ ràng mục đích, luồng xử lý và file/endpoint liên quan trong dự án."
+    },
+    {
+      "id": "api_schema",
+      "label": "Tra cứu API & Database",
+      "description": "Tập trung vào endpoint, payload Zod, Prisma schema và response format.",
+      "extraInstruction": "Ưu tiên trình bày dạng kỹ thuật: Method + Path, Request/Response fields, và Prisma model/enum liên quan."
+    },
+    {
+      "id": "extension_tracking",
+      "label": "Chrome Extension & Tracking",
+      "description": "Hỏi đáp về content.js, background.js, selectors báo chí, sự kiện đọc và chống trùng lặp.",
+      "extraInstruction": "Tập trung vào Chrome Extension Manifest V3, selectors các trang báo, event types, timeout, và cơ chế deduplication/ghost session."
+    },
+    {
+      "id": "qa_testing",
+      "label": "Hỗ trợ QA & Test Case",
+      "description": "Gợi ý test case, edge case và cách kiểm thử các tính năng nội bộ hoặc sandbox.",
+      "extraInstruction": "Đề xuất các test case cụ thể (input, bước thực hiện, kết quả kỳ vọng) dựa trên logic thật của dự án."
+    }
+  ],
+  "quickQuestions": [
+    "Tổng quan kiến trúc 3 tầng của dự án DiiD hoạt động như thế nào?",
+    "Luồng gửi sự kiện từ Chrome Extension lên POST /api/events và cách chống trùng lặp?",
+    "Database Prisma gồm những bảng nào và các trường chính là gì?",
+    "Tính năng AI tóm tắt và phân loại bài báo (/api/summarize, /api/classify) hoạt động ra sao?",
+    "Cron job dọn dẹp session treo và realtime Socket.io hoạt động như thế nào?",
+    "Trang /sandbox gồm những API nào để hệ thống khác gọi test?"
+  ]
+}
